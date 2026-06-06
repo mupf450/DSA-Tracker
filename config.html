@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>DSA Tracker Config</title>
+  <style>
+    body { font-family: sans-serif; padding: 16px; }
+    label { display:block; margin-top:12px; }
+    select, input { width:100%; padding:6px; }
+    button { margin-top:16px; padding:10px; width:100%; }
+  </style>
+</head>
+<body>
+
+<h2>DSA Punkte Tracker</h2>
+
+<label>Modus</label>
+<select id="Mode">
+  <option value="0">Nur LeP</option>
+  <option value="1" selected>LeP + AsP</option>
+  <option value="2">LeP + KaP</option>
+</select>
+
+<label>LeP Max</label>
+<input id="LepMax" type="number" value="25">
+
+<label>AsP Max</label>
+<input id="AspMax" type="number" value="40">
+
+<label>KaP Max</label>
+<input id="KapMax" type="number" value="20">
+
+<button onclick="save()">Speichern</button>
+
+<script>
+function getQuery() {
+  let params = {};
+  location.search.substring(1).split("&").forEach(p => {
+    let [k,v] = p.split("=");
+    params[k] = decodeURIComponent(v || "");
+  });
+  return params;
+}
+
+function save() {
+  const return_to = getQuery().return_to;
+
+  const config = {
+    Mode: document.getElementById("Mode").value,
+    LepMax: document.getElementById("LepMax").value,
+    AspMax: document.getElementById("AspMax").value,
+    KapMax: document.getElementById("KapMax").value
+  };
+
+  const encoded = encodeURIComponent(JSON.stringify(config));
+
+  if (return_to) {
+    window.location.href = return_to + encoded;
+  } else {
+    alert("Kein return_to Parameter gefunden");
+  }
+}
+</script>
+
+</body>
+</html>
