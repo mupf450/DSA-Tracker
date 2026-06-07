@@ -1,278 +1,209 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DSA Tracker – Einstellungen</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSA Tracker Konfiguration</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #111;
-      color: #e8d5a3;
-      font-family: Georgia, 'Times New Roman', serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
+      padding: 20px;
       min-height: 100vh;
-      padding-bottom: 40px;
     }
 
-    header {
-      background: linear-gradient(180deg, #1a0f00 0%, #0d0800 100%);
-      border-bottom: 2px solid #c8922a;
-      padding: 20px 16px 16px;
+    h1 {
+      color: #f0c040;
+      font-size: 1.4em;
       text-align: center;
-      position: relative;
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
     }
-    header::before, header::after {
-      content: '\2694';
-      color: #c8922a;
-      font-size: 1.2rem;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    header::before { left: 16px; }
-    header::after  { right: 16px; }
-    header h1 {
-      font-size: 1.6rem;
-      color: #c8922a;
-      letter-spacing: 3px;
-      text-shadow: 0 0 12px rgba(200,146,42,0.4);
-      margin-bottom: 4px;
-    }
-    header p { color: #7a6040; font-style: italic; font-size: 0.85rem; }
 
     .section {
-      margin: 16px 12px 0;
-      background: #1a1008;
-      border: 1px solid #4a2e08;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .section-title {
-      padding: 8px 14px;
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border-bottom: 1px solid #4a2e08;
-      color: #c8922a;
-      background: #0d0800;
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
     }
 
+    .section h2 {
+      color: #f0c040;
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    /* Radio-Gruppe */
     .radio-option {
       display: flex;
       align-items: center;
-      padding: 13px 14px;
-      border-bottom: 1px solid #2a1a04;
+      padding: 10px 0;
+      border-bottom: 1px solid #0f3460;
       cursor: pointer;
     }
     .radio-option:last-child { border-bottom: none; }
-    .radio-option:active { background: #2a1a04; }
+
     .radio-option input[type="radio"] {
-      width: 20px; height: 20px;
+      width: 20px;
+      height: 20px;
       margin-right: 12px;
-      accent-color: #c8922a;
+      accent-color: #f0c040;
       flex-shrink: 0;
     }
-    .radio-label .main { color: #e8d5a3; font-size: 0.95rem; }
-    .radio-label .sub  { color: #7a6040; font-size: 0.78rem; margin-top: 2px; }
+    .radio-option label {
+      cursor: pointer;
+      line-height: 1.3;
+    }
 
+    /* Zahlen-Inputs */
     .input-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 14px;
-      border-bottom: 1px solid #2a1a04;
+      padding: 10px 0;
+      border-bottom: 1px solid #0f3460;
     }
     .input-row:last-child { border-bottom: none; }
-    .input-label { display: flex; align-items: center; gap: 10px; }
-    .dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .dot-lep { background: #cc2222; }
-    .dot-asp { background: #00cccc; }
-    .dot-kap { background: #22aa55; }
-    .input-row label { color: #e8d5a3; font-size: 0.95rem; }
 
-    .stepper { display: flex; align-items: center; }
-    .stepper button {
-      width: 36px; height: 36px;
-      background: #2a1a04;
-      border: 1px solid #4a2e08;
-      color: #c8922a;
-      font-size: 1.3rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .stepper button:first-child { border-radius: 4px 0 0 4px; }
-    .stepper button:last-child  { border-radius: 0 4px 4px 0; }
-    .stepper button:active { background: #4a2e08; }
-    .stepper input[type="number"] {
-      width: 56px; height: 36px;
-      background: #111;
-      border: 1px solid #4a2e08;
-      border-left: none; border-right: none;
-      color: #e8d5a3;
-      font-family: Georgia, serif;
-      font-size: 1.1rem;
-      text-align: center;
-      -moz-appearance: textfield;
-    }
-    .stepper input[type="number"]::-webkit-inner-spin-button,
-    .stepper input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    .stepper input[type="number"]:focus { outline: none; border-color: #c8922a; }
-
-    .hint {
-      margin: 10px 12px 0;
-      padding: 8px 12px;
-      background: #0d0800;
-      border-left: 3px solid #4a2e08;
-      color: #7a6040;
-      font-size: 0.78rem;
-      font-style: italic;
-      line-height: 1.5;
-      border-radius: 0 4px 4px 0;
+    .input-row label {
+      flex: 1;
+      color: #c0c0c0;
     }
 
-    .save-wrap { margin: 20px 12px 0; }
-    .btn-save {
-      width: 100%; padding: 16px;
-      background: linear-gradient(180deg, #a07020 0%, #7a5010 100%);
-      border: 1px solid #c8922a;
-      border-radius: 4px;
+    .input-row .stat-label {
+      color: #f0c040;
+      font-weight: bold;
+      margin-right: 8px;
+      min-width: 36px;
+    }
+
+    .input-row input[type="number"] {
+      width: 80px;
+      background: #0f3460;
+      border: 1px solid #f0c040;
+      border-radius: 6px;
       color: #fff;
-      font-family: Georgia, serif;
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      font-size: 1em;
+      padding: 6px 10px;
+      text-align: center;
     }
-    .btn-save:active { opacity: 0.8; }
-    .btn-cancel {
-      width: 100%; margin-top: 10px; padding: 10px;
-      background: transparent;
-      border: 1px solid #2a1a04;
-      border-radius: 4px;
-      color: #7a6040;
-      font-family: Georgia, serif;
-      font-size: 0.9rem;
-      cursor: pointer;
+    .input-row input[type="number"]:focus {
+      outline: none;
+      border-color: #fff;
     }
-    .btn-cancel:active { background: #1a1008; }
+
+    /* Submit */
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: #f0c040;
+      color: #1a1a2e;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+    }
+    button[type="submit"]:active {
+      background: #c8a000;
+    }
   </style>
 </head>
 <body>
+  <h1>⚔️ DSA Tracker</h1>
 
-<header>
-  <h1>DSA Tracker</h1>
-  <p>Charakter-Einstellungen</p>
-</header>
+  <div class="section">
+    <h2>Modus</h2>
 
-<div class="section">
-  <div class="section-title">Aktive Punkte</div>
-  <label class="radio-option">
-    <input type="radio" name="mode" value="0" id="mode0">
-    <div class="radio-label">
-      <div class="main">Nur Lebenspunkte</div>
-      <div class="sub">LeP – Krieger, Soeldner, etc.</div>
+    <div class="radio-option">
+      <input type="radio" id="mode0" name="Mode" value="0" />
+      <label for="mode0">Nur Lebenspunkte (LeP)</label>
     </div>
-  </label>
-  <label class="radio-option">
-    <input type="radio" name="mode" value="1" id="mode1">
-    <div class="radio-label">
-      <div class="main">LeP + Astralpunkte</div>
-      <div class="sub">AsP – Magier, Hexen, etc.</div>
+    <div class="radio-option">
+      <input type="radio" id="mode1" name="Mode" value="1" />
+      <label for="mode1">LeP + Astralpunkte (AsP)</label>
     </div>
-  </label>
-  <label class="radio-option">
-    <input type="radio" name="mode" value="2" id="mode2">
-    <div class="radio-label">
-      <div class="main">LeP + Karmalpunkte</div>
-      <div class="sub">KaP – Geweihte</div>
-    </div>
-  </label>
-</div>
-
-<div class="section">
-  <div class="section-title">Maximale Punkte</div>
-  <div class="input-row">
-    <div class="input-label">
-      <div class="dot dot-lep"></div>
-      <label for="lepMax">Lebenspunkte</label>
-    </div>
-    <div class="stepper">
-      <button type="button" onclick="step('lepMax',-1)">&#8722;</button>
-      <input type="number" id="lepMax" min="1" max="999" value="25">
-      <button type="button" onclick="step('lepMax',+1)">+</button>
+    <div class="radio-option">
+      <input type="radio" id="mode2" name="Mode" value="2" />
+      <label for="mode2">LeP + Karmalpunkte (KaP)</label>
     </div>
   </div>
-  <div class="input-row">
-    <div class="input-label">
-      <div class="dot dot-asp"></div>
-      <label for="aspMax">Astralpunkte</label>
+
+  <div class="section">
+    <h2>Maximalwerte</h2>
+
+    <div class="input-row">
+      <span class="stat-label">LeP</span>
+      <label for="LepMax">Lebenspunkte</label>
+      <input type="number" id="LepMax" min="1" max="999" value="25" />
     </div>
-    <div class="stepper">
-      <button type="button" onclick="step('aspMax',-1)">&#8722;</button>
-      <input type="number" id="aspMax" min="1" max="999" value="40">
-      <button type="button" onclick="step('aspMax',+1)">+</button>
+    <div class="input-row">
+      <span class="stat-label">AsP</span>
+      <label for="AspMax">Astralpunkte</label>
+      <input type="number" id="AspMax" min="1" max="999" value="40" />
     </div>
-  </div>
-  <div class="input-row">
-    <div class="input-label">
-      <div class="dot dot-kap"></div>
-      <label for="kapMax">Karmalpunkte</label>
-    </div>
-    <div class="stepper">
-      <button type="button" onclick="step('kapMax',-1)">&#8722;</button>
-      <input type="number" id="kapMax" min="1" max="999" value="20">
-      <button type="button" onclick="step('kapMax',+1)">+</button>
+    <div class="input-row">
+      <span class="stat-label">KaP</span>
+      <label for="KapMax">Karmalpunkte</label>
+      <input type="number" id="KapMax" min="1" max="999" value="20" />
     </div>
   </div>
-</div>
 
-<p class="hint">AsP und KaP werden nur angezeigt wenn der entsprechende Modus aktiv ist.</p>
+  <button type="submit" onclick="saveConfig()">✓ Speichern</button>
 
-<div class="save-wrap">
-  <button class="btn-save" onclick="save()">Speichern</button>
-  <button class="btn-cancel" onclick="cancel()">Abbrechen</button>
-</div>
+  <script>
+    // URL-Parameter auslesen und Formular vorbelegen
+    (function() {
+      var params = {};
+      window.location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function(_, k, v) {
+        params[k] = decodeURIComponent(v);
+      });
 
-<script>
-  function getParam(key) {
-    var m = new RegExp('[?&]' + key + '=([^&]*)').exec(location.search);
-    return m ? decodeURIComponent(m[1]) : null;
-  }
+      // Modus
+      var mode = params.Mode || '1';
+      var radio = document.querySelector('input[name="Mode"][value="' + mode + '"]');
+      if (radio) radio.checked = true;
 
-  (function init() {
-    var mode = getParam('mode');
-    if (mode !== null) {
-      var r = document.querySelector('input[name="mode"][value="' + mode + '"]');
-      if (r) r.checked = true;
-    } else {
-      document.getElementById('mode1').checked = true;
+      // Maximalwerte
+      if (params.LepMax) document.getElementById('LepMax').value = params.LepMax;
+      if (params.AspMax) document.getElementById('AspMax').value = params.AspMax;
+      if (params.KapMax) document.getElementById('KapMax').value = params.KapMax;
+    })();
+
+    function saveConfig() {
+      var modeEl = document.querySelector('input[name="Mode"]:checked');
+      if (!modeEl) {
+        alert('Bitte einen Modus auswählen.');
+        return;
+      }
+
+      var config = {
+        Mode:   modeEl.value,
+        LepMax: document.getElementById('LepMax').value || '25',
+        AspMax: document.getElementById('AspMax').value || '40',
+        KapMax: document.getElementById('KapMax').value || '20'
+      };
+
+      // Pebble-Callback: encodeURIComponent(JSON) zurückgeben
+      var result = encodeURIComponent(JSON.stringify(config));
+
+      // Pebble-SDK-Methode – funktioniert in der Pebble-Webview
+      if (typeof window.pebblejs !== 'undefined') {
+        // Ältere SDK-Variante
+        document.location = 'pebblejs://close#' + result;
+      } else {
+        document.location = 'pebblejs://close#' + result;
+      }
     }
-    var lep = getParam('lepMax'); if (lep) document.getElementById('lepMax').value = lep;
-    var asp = getParam('aspMax'); if (asp) document.getElementById('aspMax').value = asp;
-    var kap = getParam('kapMax'); if (kap) document.getElementById('kapMax').value = kap;
-  })();
-
-  function step(id, dir) {
-    var el = document.getElementById(id);
-    el.value = Math.max(1, Math.min(999, parseInt(el.value, 10) + dir));
-  }
-
-  function save() {
-    var mode = document.querySelector('input[name="mode"]:checked');
-    var data = {
-      mode:   mode ? mode.value : '1',
-      lepMax: document.getElementById('lepMax').value,
-      aspMax: document.getElementById('aspMax').value,
-      kapMax: document.getElementById('kapMax').value
-    };
-    location.href = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(data));
-  }
-
-  function cancel() {
-    location.href = 'pebblejs://close';
-  }
-</script>
+  </script>
 </body>
 </html>
